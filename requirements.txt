@@ -35,3 +35,4 @@ Twisted==17.5.0
 virtualenv==15.1.0
 w3lib==1.17.0
 zope.interface==4.4.2
+scikit-learn==0.21.2
