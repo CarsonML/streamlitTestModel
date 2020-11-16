@@ -3,17 +3,25 @@ import streamlit as st
 # working with sample data.
 import numpy as np
 import pandas as pd
+import zipfile
+import pickle
 
-st.title('My first app')
-st.write("Here's our first attempt at using data to create a table:")
-st.write(pd.DataFrame({
-    'first column': [1, 2, 3, 4],
-    'second column': [10, 20, 30, 40]
-}))
+with zipfile.ZipFile("model.pkl.zip","r") as zip_ref:
+    zip_ref.extractall("./")
+model = pickle.load(open('model.pkl', 'rb'))
+tfidf = pickle.load(open('tfidf.pkl','rb'))
+st.title('Patent Classification') 
+st.title('Streamlit Share And LIME Visualization')
+txt = st.text_area('')
+docs = [txt]
+newText = tfidf[0].transform(docs).todense()
+print(type(newText))
+new_data = model.predict(newText)
+    # c = make_pipeline(tfidf, model)
+    # class_names = ['700','705','706']
+    # explainer = LimeTextExplainer(class_names=class_names)
+    # exp = explainer.explain_instance(txt, c.predict_proba, num_features=6, top_labels=1)
+    # # Display explainer HTML object
+    # components.html(exp.as_html(), height=800)
 
-df = pd.DataFrame({
-  'first column': [1, 2, 3, 4],
-  'second column': [10, 20, 30, 40]
-})
-
-df
+st.title(new_data)
