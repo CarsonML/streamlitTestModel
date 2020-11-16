@@ -10,8 +10,7 @@ with zipfile.ZipFile("model.pkl.zip","r") as zip_ref:
     zip_ref.extractall("./")
 model = pickle.load(open('model.pkl', 'rb'))
 tfidf = pickle.load(open('tfidf.pkl','rb'))
-st.title('Patent Classification') 
-st.title('Streamlit Share And LIME Visualization')
+st.title('Language Classification') 
 txt = st.text_area('')
 docs = [txt]
 newText = tfidf[0].transform(docs).todense()
